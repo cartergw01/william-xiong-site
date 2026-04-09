@@ -83,7 +83,7 @@ body {
   max-width: 1440px;
   height: auto;
   mix-blend-mode: multiply;
-  opacity: 0.14;
+  opacity: 0.18;
   pointer-events: none;
   user-select: none;
 }
@@ -91,7 +91,7 @@ body {
 body.theme-dark .bg-skyline-img {
   filter: invert(1);
   mix-blend-mode: screen;
-  opacity: 0.18;
+  opacity: 0.22;
 }
 
 a {
