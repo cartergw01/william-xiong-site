@@ -71,8 +71,8 @@ body {
   pointer-events: none;
   user-select: none;
   z-index: 0;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 94%, transparent 100%);
 }
 
 body.theme-dark .bg-skyline-img {
