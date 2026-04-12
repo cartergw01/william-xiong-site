@@ -441,9 +441,24 @@ body.theme-light .theme-icon-sun {
   padding-bottom: 1rem;
 }
 
-/* Mobile progress bar — hidden on desktop */
-.mobile-progress {
+/* Mobile-only overlays — hidden on desktop */
+.mobile-progress,
+.touch-glow {
   display: none;
+}
+
+/* Entry border draw keyframe */
+@keyframes border-draw {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* Hero name sweep flare */
+@keyframes hero-flare {
+  0%   { left: -70%; opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 0.5; }
+  100% { left: 130%; opacity: 0; }
 }
 
 .reveal {
@@ -682,7 +697,30 @@ body.theme-light .theme-icon-sun {
     color: var(--muted);
   }
 
-  /* ── Mobile animations ─────────────────────────────── */
+  /* ── Mobile animations & lighting ───────────────────── */
+
+  /* Scrolling background: accent glow tracks scroll position */
+  body {
+    background:
+      radial-gradient(ellipse 70% 35% at 50% var(--bg-glow-y, -5%), var(--accent-soft), transparent),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+  }
+
+  /* Touch-reactive spotlight */
+  .touch-glow {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      200px circle at var(--tx, 50%) var(--ty, 50%),
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 5;
+    opacity: var(--touch-active, 0);
+    transition: opacity 0.5s ease;
+  }
 
   /* Progress bar */
   .mobile-progress {
@@ -695,6 +733,13 @@ body.theme-light .theme-icon-sun {
     z-index: 200;
     pointer-events: none;
     overflow: hidden;
+  }
+
+  .mobile-progress::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--surface-line) 50%, transparent);
   }
 
   .mobile-progress::after {
@@ -710,11 +755,11 @@ body.theme-light .theme-icon-sun {
       var(--accent) 60%,
       color-mix(in srgb, var(--accent) 90%, white)
     );
-    box-shadow: 0 0 8px var(--accent), 0 0 2px var(--accent);
+    box-shadow: 0 0 10px var(--accent), 0 0 4px var(--accent);
     transition: width 60ms linear;
   }
 
-  /* Hero: use transform-only reveal so word opacity isn't stacked */
+  /* Hero: transform-only reveal so word opacity isn't stacked */
   .hero.reveal {
     opacity: 1;
     transform: translateY(22px);
@@ -724,7 +769,35 @@ body.theme-light .theme-icon-sun {
     transform: none;
   }
 
-  /* Hero word split animation */
+  /* Hero: diagonal light flare sweeps across on load */
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -70%;
+    width: 38%;
+    height: 140%;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      color-mix(in srgb, var(--accent) 12%, white) 50%,
+      transparent 100%
+    );
+    transform: skewX(-12deg);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .hero.is-visible::after {
+    animation: hero-flare 1.6s cubic-bezier(0.4, 0, 0.6, 1) 0.25s forwards;
+  }
+
+  /* Hero words: slide up + ambient glow on arrival */
   .hero-word {
     display: inline-block;
     opacity: 0;
@@ -737,9 +810,43 @@ body.theme-light .theme-icon-sun {
   .hero.is-visible .hero-word {
     opacity: 1;
     transform: none;
+    text-shadow:
+      0 0 55px color-mix(in srgb, var(--accent) 28%, transparent),
+      0 0 110px color-mix(in srgb, var(--accent) 12%, transparent);
   }
 
-  /* Entry head assembly — slides from each side (no opacity, section handles that) */
+  /* Entry: context for laser border draw */
+  .entry {
+    position: relative;
+  }
+
+  /* Laser line draws across the top border on scroll-in */
+  .entry::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--accent) 30%,
+      color-mix(in srgb, var(--accent) 80%, white) 50%,
+      var(--accent) 70%,
+      transparent 100%
+    );
+    box-shadow: 0 0 10px var(--accent), 0 0 22px color-mix(in srgb, var(--accent) 40%, transparent);
+    transition: width 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .entry.entry-visible::before {
+    width: 100%;
+  }
+
+  /* Entry head assembly: company from left, date from right */
   .entry-side-left {
     transform: translateX(-18px);
     transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
@@ -755,7 +862,16 @@ body.theme-light .theme-icon-sun {
     transform: none;
   }
 
-  /* Bullet stagger — delayed so section is visible first */
+  /* Section title: accent glow when section arrives */
+  .section-title {
+    transition: text-shadow 0.9s ease 0.2s;
+  }
+
+  .resume-section.is-visible .section-title {
+    text-shadow: 0 0 32px color-mix(in srgb, var(--accent) 38%, transparent);
+  }
+
+  /* Bullet stagger */
   .detail-list li {
     opacity: 0;
     transform: translateX(-10px);
@@ -769,18 +885,27 @@ body.theme-light .theme-icon-sun {
     transform: none;
   }
 
-  /* Skill pill spring pop */
+  /* Skill pill: spring pop + accent glow border that settles */
   .skill-list li {
     opacity: 0;
     transform: scale(0.78) translateY(5px);
     transition:
       opacity 0.36s cubic-bezier(0.34, 1.56, 0.64, 1),
-      transform 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform 0.36s cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color 0.5s ease,
+      box-shadow 0.5s ease;
   }
 
   .skill-list li.li-visible {
     opacity: 1;
     transform: none;
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  .skill-list li.li-settled {
+    border-color: var(--surface-line);
+    box-shadow: none;
   }
 }
 
@@ -833,5 +958,11 @@ body.theme-light .theme-icon-sun {
   .skill-list li {
     opacity: 1 !important;
     transform: none !important;
+    text-shadow: none !important;
+  }
+
+  .hero::after,
+  .entry::before {
+    display: none !important;
   }
 }

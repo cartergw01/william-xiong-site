@@ -25,9 +25,9 @@ if (themeToggle) {
 
 // ── Desktop scroll spine ─────────────────────────────────
 const updateSpine = () => {
-  const scrolled = window.scrollY;
+  const y = window.scrollY;
   const max = document.documentElement.scrollHeight - window.innerHeight;
-  root.style.setProperty("--spine-height", max > 0 ? `${(scrolled / max) * 100}%` : "0%");
+  root.style.setProperty("--spine-height", max > 0 ? `${(y / max) * 100}%` : "0%");
 };
 window.addEventListener("scroll", updateSpine, { passive: true });
 window.addEventListener("resize", updateSpine, { passive: true });
@@ -44,13 +44,13 @@ const revealObserver = new IntersectionObserver(
 );
 document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 
-// ── Mobile animations ─────────────────────────────────────
+// ── Mobile animations & lighting ─────────────────────────
 const isMobile = window.innerWidth <= 640;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (isMobile && !reducedMotion) {
 
-  // Hero: split name into words and animate each in
+  // Split hero name into words for staggered slide-up
   const heroName = document.querySelector(".hero-name");
   if (heroName) {
     const words = heroName.textContent.trim().split(/\s+/);
@@ -62,21 +62,18 @@ if (isMobile && !reducedMotion) {
     });
   }
 
-  // Entry observer: assemble header + stagger bullets
+  // Entry observer: laser border + header assembly + bullet stagger
   const entryObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
-
         const entry = e.target;
 
-        // Trigger header assembly (transform only — no opacity)
         entry.classList.add("entry-visible");
 
-        // Stagger bullets: delay starts after section is likely visible (~350ms)
+        // Stagger bullets after section has had time to fade in
         entry.querySelectorAll(".detail-list li").forEach((li, i) => {
           li.style.transitionDelay = `${0.32 + i * 0.075}s`;
-          // Double rAF ensures the delay is set before class triggers transition
           requestAnimationFrame(() => requestAnimationFrame(() => li.classList.add("li-visible")));
         });
 
@@ -87,14 +84,20 @@ if (isMobile && !reducedMotion) {
   );
   document.querySelectorAll(".entry").forEach((el) => entryObserver.observe(el));
 
-  // Skills observer: stagger pill pop-in
+  // Skills observer: pill spring pop + accent glow → settle
   const skillsObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
         e.target.querySelectorAll(".skill-list li").forEach((li, i) => {
           li.style.transitionDelay = `${0.08 + i * 0.055}s`;
-          requestAnimationFrame(() => requestAnimationFrame(() => li.classList.add("li-visible")));
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => {
+              li.classList.add("li-visible");
+              // Settle glow after pill has finished popping in
+              setTimeout(() => li.classList.add("li-settled"), 800 + i * 55);
+            })
+          );
         });
         skillsObserver.unobserve(e.target);
       });
@@ -103,28 +106,68 @@ if (isMobile && !reducedMotion) {
   );
   document.querySelectorAll(".skills-grid").forEach((el) => skillsObserver.observe(el));
 
-  // Ambient glow parallax — shifts upward as you scroll
+  // Ambient parallax — glow drifts and grows with scroll
   const ambientOrbit = document.querySelector(".ambient-orbit");
-  if (ambientOrbit) {
-    let rafPending = false;
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!rafPending) {
-          rafPending = true;
-          requestAnimationFrame(() => {
-            const y = window.scrollY;
-            const max = document.documentElement.scrollHeight - window.innerHeight;
-            const t = max > 0 ? y / max : 0;
-            ambientOrbit.style.transform = `translateY(${y * 0.08}px) scale(${1 + t * 0.1})`;
-            ambientOrbit.style.opacity = `${0.92 + t * 0.08}`;
-            rafPending = false;
-          });
-        }
-      },
-      { passive: true }
-    );
-  }
+  let spineRaf = false;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!spineRaf) {
+        spineRaf = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const t = max > 0 ? y / max : 0;
+
+          // Background glow position follows scroll (accent moves down the page)
+          root.style.setProperty("--bg-glow-y", `${t * 110}%`);
+
+          // Ambient orbit parallax
+          if (ambientOrbit) {
+            ambientOrbit.style.transform = `translateY(${y * 0.08}px) scale(${1 + t * 0.12})`;
+            ambientOrbit.style.opacity = `${0.9 + t * 0.1}`;
+          }
+
+          spineRaf = false;
+        });
+      }
+    },
+    { passive: true }
+  );
+
+  // Touch-reactive spotlight
+  const touchGlow = document.createElement("div");
+  touchGlow.className = "touch-glow";
+  body.appendChild(touchGlow);
+
+  document.addEventListener(
+    "touchstart",
+    (e) => {
+      const t = e.touches[0];
+      root.style.setProperty("--tx", `${(t.clientX / window.innerWidth) * 100}%`);
+      root.style.setProperty("--ty", `${(t.clientY / window.innerHeight) * 100}%`);
+      root.style.setProperty("--touch-active", "1");
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "touchmove",
+    (e) => {
+      const t = e.touches[0];
+      root.style.setProperty("--tx", `${(t.clientX / window.innerWidth) * 100}%`);
+      root.style.setProperty("--ty", `${(t.clientY / window.innerHeight) * 100}%`);
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "touchend",
+    () => {
+      root.style.setProperty("--touch-active", "0");
+    },
+    { passive: true }
+  );
 
   // Mobile progress bar
   const bar = document.createElement("div");
