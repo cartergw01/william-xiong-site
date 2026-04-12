@@ -6,218 +6,294 @@
     <title>William Xiong</title>
     <meta
       name="description"
-      content="William Xiong is a business intelligence analyst with experience in analytics, reporting, data modeling, and product research."
+      content="Business intelligence analyst with experience in analytics, reporting, data modeling, and product research."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <div class="bg-canvas" aria-hidden="true"></div>
-    <img class="bg-skyline-img" src="./assets/seattle-skyline.svg" aria-hidden="true" alt=""/>
+  <body class="theme-dark">
+    <div class="ambient ambient-orbit" aria-hidden="true"></div>
+    <div class="ambient ambient-grid" aria-hidden="true"></div>
+    <div class="frame-rails" aria-hidden="true">
+      <span class="frame-rail frame-rail-left">
+        <span class="frame-progress"></span>
+      </span>
+      <span class="frame-rail frame-rail-right">
+        <span class="frame-progress"></span>
+      </span>
+    </div>
 
-    <button
-      class="theme-toggle"
-      type="button"
-      aria-pressed="false"
-      aria-label="Toggle dark mode"
-    ></button>
+    <main class="page-shell">
+      <div class="top-utility reveal">
+        <button class="theme-toggle" type="button" aria-pressed="true" aria-label="Switch to light mode">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M14.25 3.75a7.5 7.5 0 1 0 6 12 8.25 8.25 0 1 1-6-12Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 6.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5Zm0-3v1.5m0 13.5v1.5m8.25-8.25h-1.5m-13.5 0h-1.5m12.34 5.84-1.06-1.06m-9.56-9.56-1.06-1.06m10.62 0-1.06 1.06m-9.56 9.56-1.06 1.06"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
+        </button>
 
-    <main id="top">
-      <section class="hero reveal">
-        <div class="container">
-          <div class="hero-content">
-            <div class="hero-copy">
-              <h1 class="hero-name">
-                <span class="hero-name-first">William</span>
-                <span class="hero-name-last">Xiong</span>
-              </h1>
-              <div class="hero-summary-block">
-                <div class="hero-actions">
-                  <a class="button button-dark" href="./assets/william-xiong-resume.pdf" target="_blank" rel="noreferrer">
-                    Resume PDF
-                  </a>
-                </div>
-              </div>
+        <div class="top-links">
+          <a class="icon-link" href="mailto:therealxiong@outlook.com" aria-label="Email William Xiong">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M3.75 6.75h16.5A1.5 1.5 0 0 1 21.75 8.25v7.5a1.5 1.5 0 0 1-1.5 1.5H3.75a1.5 1.5 0 0 1-1.5-1.5v-7.5a1.5 1.5 0 0 1 1.5-1.5Zm0 1.5 8.25 5.625 8.25-5.625"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+            </svg>
+          </a>
+          <a
+            class="icon-link"
+            href="https://www.linkedin.com/in/qixiangwilliam-xiong/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn profile"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M6.75 8.25a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Zm-1.125 2.25h2.25v7.5h-2.25Zm5.25 0h2.156v1.072h.03c.3-.57 1.035-1.171 2.13-1.171 2.279 0 2.7 1.5 2.7 3.451v4.148h-2.25v-3.678c0-.878-.016-2.007-1.223-2.007-1.225 0-1.412.957-1.412 1.944v3.741h-2.25Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+          <a
+            class="icon-link resume-icon-link"
+            href="./assets/william-xiong-resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Download resume PDF"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <header class="hero reveal">
+        <div class="hero-markers" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </div>
+
+        <h1 class="hero-name">William Xiong</h1>
+
+        <div class="contact-grid">
+          <a href="mailto:therealxiong@outlook.com">therealxiong@outlook.com</a>
+          <p>Los Angeles, CA</p>
+        </div>
+
+        <section class="summary-block">
+          <h2 class="section-title">Summary</h2>
+          <p class="summary-copy">
+            Business intelligence analyst with experience supporting leadership reporting, validating dashboards,
+            building data workflows, and turning analytical findings into clear business decisions.
+            Skilled across SQL, Tableau, Power BI, Python, and Excel.
+          </p>
+        </section>
+      </header>
+
+      <section class="resume-section reveal">
+        <h2 class="section-title">Professional Experience</h2>
+
+        <article class="entry">
+          <div class="entry-head">
+            <div class="entry-side entry-side-left">
+              <h3>Premier America Credit Union</h3>
+              <p>Business Intelligence Analyst</p>
+            </div>
+
+            <div class="entry-center">
+              <span>Oct 2025 – Present</span>
+            </div>
+
+            <div class="entry-side entry-side-right">
+              <p>Chatsworth, CA</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section class="section reveal" id="about">
-        <div class="container">
-          <div class="section-heading">
-            <h2>About</h2>
-          </div>
-          <article class="card about-card">
-            <p class="about-lead">
-              William is a data and analytics professional with experience supporting leadership reporting,
-              validating dashboards, building data workflows, and turning findings into clear business decisions.
-            </p>
-            <div class="about-grid">
-              <p>
-                His work spans business intelligence, market research, product
-                support, and predictive modeling, with a toolkit centered on
-                SQL, Tableau, Power BI, Python, and Excel.
-              </p>
-              <ul class="about-list">
-                <li>Business intelligence and dashboard reporting</li>
-                <li>Data validation, QA, and release readiness</li>
-                <li>Applied analytics and predictive modeling</li>
-                <li>Cross-functional communication and stakeholder support</li>
-              </ul>
+          <ul class="detail-list">
+            <li>Builds recurring and ad hoc dashboards using SQL, Power BI, Tableau, and Report Builder.</li>
+            <li>Supports senior leadership and regulatory reporting with clear, accurate reporting outputs.</li>
+            <li>Validated 400+ dashboards during a rapid QA initiative, tracking issues and retesting fixes.</li>
+            <li>Works in an agile process with stakeholders to prioritize requests and deliver analytics support.</li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <div class="entry-side entry-side-left">
+              <h3>Petday</h3>
+              <p>Co-Founder</p>
             </div>
-          </article>
-        </div>
+
+            <div class="entry-center">
+              <span>May 2024 – Sep 2025</span>
+            </div>
+
+            <div class="entry-side entry-side-right">
+              <p>Los Angeles, CA</p>
+            </div>
+          </div>
+
+          <ul class="detail-list">
+            <li>Led market research to guide app feature development from 0 to 1.</li>
+            <li>Used APIs and Python scraping to build Tableau dashboards on pet care industry trends.</li>
+            <li>Built Excel forecasting models to support user growth and go-to-market planning.</li>
+            <li>Managed chatbot rollout and reviewed feature engagement through Google Analytics.</li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <div class="entry-side entry-side-left">
+              <h3>Accenture Strategy &amp; Consulting</h3>
+              <p>Intern</p>
+            </div>
+
+            <div class="entry-center">
+              <span>Jun 2021 – Sep 2021</span>
+            </div>
+
+            <div class="entry-side entry-side-right">
+              <p>Beijing, China</p>
+            </div>
+          </div>
+
+          <ul class="detail-list">
+            <li>Analyzed the revenue impact of policy changes in the ride-sharing industry.</li>
+            <li>Used regression analysis to identify revenue drivers and investigate metric anomalies.</li>
+            <li>Cleaned and prepared data for downstream analysis.</li>
+            <li>Automated weekly and monthly reports with Python, improving task efficiency by 80%.</li>
+          </ul>
+        </article>
       </section>
 
-      <section class="section reveal" id="experience">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Experience</h2>
+      <section class="resume-section reveal">
+        <h2 class="section-title">Projects</h2>
+
+        <article class="entry">
+          <div class="entry-head">
+            <div class="entry-side entry-side-left">
+              <h3>Cyber Claim Prediction Capstone</h3>
+              <p>Duke University, Fuqua School of Business</p>
+            </div>
+
+            <div class="entry-center">
+              <span>2024</span>
+            </div>
+
+            <div class="entry-side entry-side-right">
+              <p>Durham, NC</p>
+            </div>
           </div>
 
-          <div class="stack">
-            <article class="card role-card">
-              <div class="role-header">
-                <div>
-                  <h3>Premier America Credit Union</h3>
-                  <p class="role-title">Business Intelligence Analyst</p>
-                </div>
-                <p class="role-meta">Chatsworth, CA · Oct 2025 - Present</p>
-              </div>
-              <ul class="plain-list">
-                <li>Builds recurring and ad hoc dashboards using SQL, Power BI, Tableau, and Report Builder.</li>
-                <li>Supports senior leadership and regulatory reporting with clear, accurate reporting outputs.</li>
-                <li>Validated 400+ dashboards during a rapid QA initiative, tracking issues and retesting fixes.</li>
-                <li>Works in an agile process with stakeholders to prioritize requests and deliver analytics support.</li>
-              </ul>
-            </article>
-
-            <article class="card role-card">
-              <div class="role-header">
-                <div>
-                  <h3>Petday</h3>
-                  <p class="role-title">Co-Founder</p>
-                </div>
-                <p class="role-meta">Los Angeles, CA · May 2024 - Sep 2025</p>
-              </div>
-              <ul class="plain-list">
-                <li>Led market research to guide app feature development from 0 to 1.</li>
-                <li>Used APIs and Python scraping to build Tableau dashboards on pet care industry trends.</li>
-                <li>Built Excel forecasting models to support user growth and go-to-market planning.</li>
-                <li>Managed chatbot rollout and reviewed feature engagement through Google Analytics.</li>
-              </ul>
-            </article>
-
-            <article class="card role-card">
-              <div class="role-header">
-                <div>
-                  <h3>Accenture Strategy &amp; Consulting</h3>
-                  <p class="role-title">Intern</p>
-                </div>
-                <p class="role-meta">Beijing, China · Jun 2021 - Sep 2021</p>
-              </div>
-              <ul class="plain-list">
-                <li>Analyzed the revenue impact of policy changes in the ride-sharing industry.</li>
-                <li>Used regression analysis to identify revenue drivers and investigate metric anomalies.</li>
-                <li>Cleaned and prepared data for downstream analysis.</li>
-                <li>Automated weekly and monthly reports with Python, improving task efficiency by 80%.</li>
-              </ul>
-            </article>
-          </div>
-        </div>
+          <ul class="detail-list">
+            <li>Built an XGBoost-based cyber claim prediction model that improved payout projection accuracy by 25% compared with a traditional triangle estimation approach.</li>
+            <li>Created a Python ETL pipeline that reduced data processing time by 20%.</li>
+            <li>Built Tableau dashboards to communicate model results and key insights to stakeholders.</li>
+          </ul>
+        </article>
       </section>
 
-      <section class="section reveal" id="projects">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Projects</h2>
-          </div>
+      <section class="resume-section reveal">
+        <h2 class="section-title">Skills</h2>
 
-          <article class="card project-card">
-            <h3>Cyber Claim Prediction Capstone</h3>
-            <p class="project-meta">Duke University, Fuqua School of Business</p>
-            <p>
-              Built an XGBoost-based cyber claim prediction model that improved
-              payout projection accuracy by 25% compared with a traditional
-              triangle estimation approach.
-            </p>
-            <ul class="plain-list">
-              <li>Created a Python ETL pipeline that reduced processing time by 20%.</li>
-              <li>Built Tableau dashboards to communicate model results and key insights.</li>
-              <li>Presented findings in a business-friendly format for stakeholders.</li>
+        <div class="skills-grid">
+          <div class="skill-column">
+            <h3>Analytics &amp; BI:</h3>
+            <ul class="skill-list">
+              <li>SQL</li>
+              <li>Tableau</li>
+              <li>Power BI</li>
+              <li>Advanced Excel</li>
+              <li>Financial Reporting</li>
             </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section reveal" id="education">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Education</h2>
           </div>
 
-          <div class="education-layout">
-            <div class="card education-card">
-              <div class="education-entry">
-                <div class="education-main">
-                  <h3>Duke University, Fuqua School of Business</h3>
-                  <p>MS in Quantitative Management: Business Analytics, Risk Track</p>
-                </div>
-                <div class="education-meta">
-                  <p>May 2024</p>
-                  <p>Durham, NC</p>
-                </div>
-              </div>
-
-              <div class="education-entry">
-                <div class="education-main">
-                  <h3>University of Washington - Seattle</h3>
-                  <p>BS in Economics, Data Science Minor</p>
-                </div>
-                <div class="education-meta">
-                  <p>June 2023</p>
-                  <p>Dean's List for 8 quarters</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="card skills-card">
-              <h3>Skills</h3>
-              <ul class="skill-grid">
-                <li>SQL</li>
-                <li>Tableau</li>
-                <li>Power BI</li>
-                <li>Python</li>
-                <li>Advanced Excel</li>
-                <li>R</li>
-                <li>Jupyter Notebook</li>
-                <li>Google Colab</li>
-                <li>Financial Reporting</li>
-                <li>Google Data Analytics Certificate</li>
-              </ul>
-            </div>
+          <div class="skill-column">
+            <h3>Languages &amp; Tools:</h3>
+            <ul class="skill-list">
+              <li>Python</li>
+              <li>R</li>
+              <li>Jupyter Notebook</li>
+              <li>Google Colab</li>
+              <li>Google Data Analytics Certificate</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <section class="section reveal" id="contact">
-        <div class="container">
-          <div class="section-heading">
-            <h2>Contact</h2>
-          </div>
+      <section class="resume-section reveal">
+        <h2 class="section-title">Education</h2>
 
-          <div class="card contact-card">
-            <a href="mailto:therealxiong@outlook.com">therealxiong@outlook.com</a>
-            <a href="https://www.linkedin.com/in/qixiangwilliam-xiong/" target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
-            <a class="resume-link" href="./assets/william-xiong-resume.pdf" target="_blank" rel="noreferrer">
-              Resume PDF
-            </a>
+        <article class="entry entry-education">
+          <div class="entry-head">
+            <div class="entry-side entry-side-left">
+              <h3>Duke University, Fuqua School of Business</h3>
+              <p>MS in Quantitative Management: Business Analytics, Risk Track</p>
+            </div>
+
+            <div class="entry-center">
+              <span>May 2024</span>
+            </div>
+
+            <div class="entry-side entry-side-right">
+              <p>Durham, NC</p>
+            </div>
           </div>
-        </div>
+        </article>
+
+        <article class="entry entry-education">
+          <div class="entry-head">
+            <div class="entry-side entry-side-left">
+              <h3>University of Washington – Seattle</h3>
+              <p>BS in Economics, Data Science Minor</p>
+            </div>
+
+            <div class="entry-center">
+              <span>Jun 2023</span>
+            </div>
+
+            <div class="entry-side entry-side-right">
+              <p>Dean's List, 8 quarters</p>
+            </div>
+          </div>
+        </article>
       </section>
     </main>
+
     <script src="./script.js"></script>
   </body>
 </html>
