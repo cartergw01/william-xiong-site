@@ -441,6 +441,11 @@ body.theme-light .theme-icon-sun {
   padding-bottom: 1rem;
 }
 
+/* Mobile progress bar — hidden on desktop */
+.mobile-progress {
+  display: none;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(18px);
@@ -676,6 +681,107 @@ body.theme-light .theme-icon-sun {
     line-height: 1.4;
     color: var(--muted);
   }
+
+  /* ── Mobile animations ─────────────────────────────── */
+
+  /* Progress bar */
+  .mobile-progress {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 200;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .mobile-progress::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--progress, 0%);
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--accent) 55%, transparent),
+      var(--accent) 60%,
+      color-mix(in srgb, var(--accent) 90%, white)
+    );
+    box-shadow: 0 0 8px var(--accent), 0 0 2px var(--accent);
+    transition: width 60ms linear;
+  }
+
+  /* Hero: use transform-only reveal so word opacity isn't stacked */
+  .hero.reveal {
+    opacity: 1;
+    transform: translateY(22px);
+  }
+
+  .hero.reveal.is-visible {
+    transform: none;
+  }
+
+  /* Hero word split animation */
+  .hero-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.38em);
+    transition:
+      opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--word-delay, 0.1s),
+      transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--word-delay, 0.1s);
+  }
+
+  .hero.is-visible .hero-word {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Entry head assembly — slides from each side (no opacity, section handles that) */
+  .entry-side-left {
+    transform: translateX(-18px);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .entry-center {
+    transform: translateX(18px);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.07s;
+  }
+
+  .entry.entry-visible .entry-side-left,
+  .entry.entry-visible .entry-center {
+    transform: none;
+  }
+
+  /* Bullet stagger — delayed so section is visible first */
+  .detail-list li {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .detail-list li.li-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Skill pill spring pop */
+  .skill-list li {
+    opacity: 0;
+    transform: scale(0.78) translateY(5px);
+    transition:
+      opacity 0.36s cubic-bezier(0.34, 1.56, 0.64, 1),
+      transform 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .skill-list li.li-visible {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -717,5 +823,15 @@ body.theme-light .theme-icon-sun {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Reset mobile animation initial states so content is never hidden */
+  .hero-word,
+  .entry-side-left,
+  .entry-center,
+  .detail-list li,
+  .skill-list li {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
